@@ -1,22 +1,34 @@
 $length: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 $lines: grey;
 $board: white;
+$clear: transparent;
 
 .hidden {
     visibility: hidden;
 }
 
+.ring {
+    position: absolute;
+    top: 20px;
+    width: 20px;
+    height: 20px;
+    border: 3px solid black;
+    border-radius: 50%;
+    background-color: transparent;
+}
 .grid {
     width: 100vw;
     min-height: 100vh;
     display: flex;
     flex-flow: column;
     margin: 0 auto;
+    background-color: grey;
+    padding: 2%;
 }
 .row {
     height: 52px;
     width: 100%;
-    background-color: grey;
+
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -37,15 +49,30 @@ $board: white;
     border-left: 25px solid transparent;
     border-right: 25px solid transparent;
     border-bottom: 50px solid $board;
+    &.paint {
+        border-color: transparent;
+    }
     .vertice {
         color: transparent;
         &-top {
             position: absolute;
             top: -4px;
             left: -3px;
-            border: 1px solid red;
+            border: 1px solid green;
             padding: 3px;
             border-radius: 50%;
+            &.black {
+                top: -8px;
+                left: -8px;
+                border: 6px solid black;
+                box-shadow: 0 0 2px 2px indianred;
+            }
+            &.white {
+                top: -8px;
+                left: -8px;
+                border: 6px solid white;
+                box-shadow: 0 0 2px 2px indianred;
+            }
         }
     }
 }

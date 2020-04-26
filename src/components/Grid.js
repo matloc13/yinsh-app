@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Block, Row } from './index';
+import { Ring, Row } from './index';
 import { useAssembleBoard } from './../utilHooks/index';
 
 const Grid = () => {
@@ -8,7 +8,7 @@ const Grid = () => {
     const { buildBoard } = useAssembleBoard();
 
     useEffect(() => {
-        let board = buildBoard(11);
+        let board = buildBoard(12);
         if (board) {
             console.log('board', board);
             setGameboard({ ...gameboard, board });
@@ -22,6 +22,7 @@ const Grid = () => {
                 gameboard.board.row.map((row, i) => {
                     return <Row key={i} rowName={row} />;
                 })}
+            <Ring />
         </main>
     );
 };

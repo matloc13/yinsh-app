@@ -6,6 +6,7 @@ const Row = ({ rowName }) => {
     // const hide = rowName.filter((space) => {
     //     space.y;
     // });
+
     return (
         <section className="row">
             {rowName &&
