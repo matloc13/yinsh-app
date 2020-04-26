@@ -6,7 +6,6 @@ const App = () => {
     // const [grid, setgrid] = useState({ height: 10, width: 10, triangle: 1 });
     return (
         <div className="App">
-            <header className="App-header"></header>
             <Grid />
         </div>
     );
