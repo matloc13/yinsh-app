@@ -1,6 +1,8 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Ring, Row } from './index';
 import { useAssembleBoard } from './../utilHooks/index';
+import Backend from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
 
 const Grid = () => {
     const initboard = [];
@@ -17,13 +19,15 @@ const Grid = () => {
 
     // console.log('gameboard', gameboard);
     return (
-        <main className="grid">
-            {gameboard.board &&
-                gameboard.board.row.map((row, i) => {
-                    return <Row key={i} rowName={row} />;
-                })}
-            <Ring />
-        </main>
+        <DndProvider backend={Backend}>
+            <main className="grid">
+                {gameboard.board &&
+                    gameboard.board.row.map((row, i) => {
+                        return <Row key={i} rowName={row} />;
+                    })}
+                <Ring player={'one'} ringNumber={`ring1`} />
+            </main>
+        </DndProvider>
     );
 };
 

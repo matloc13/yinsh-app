@@ -1,8 +1,9 @@
 import React from 'react';
-import { Block } from './index';
+import { Block, Ring } from './index';
 
 const Row = ({ rowName }) => {
-    console.log('rowName', rowName);
+    // console.log('rowName', rowName);
+
     // const hide = rowName.filter((space) => {
     //     space.y;
     // });

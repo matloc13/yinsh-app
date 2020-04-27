@@ -1,9 +1,6 @@
-import React from 'react';
-import { Stone } from './../components/index';
+// import React from 'react';
+// import { Stone } from './../components/index';
 
-const currentStoneFace = () => {
-    return;
-};
 const useHandleStones = () => {
     const addStone = (id) => {
         const stone = document.getElementById(id);
@@ -11,7 +8,17 @@ const useHandleStones = () => {
         stone.classList.add('white');
         // stone.append(<Stone color={'black'} />);
     };
-    return { addStone };
+
+    const moveRing = (rID, x, y) => {
+        const ring = document.getElementById(rID);
+        console.log('ring', ring);
+    };
+
+    const currentStoneFace = () => {
+        return;
+    };
+
+    return { addStone, moveRing };
 };
 
 export default useHandleStones;

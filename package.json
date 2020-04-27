@@ -12,8 +12,9 @@
     "@testing-library/user-event": "^7.2.1",
     "node-sass": "^4.14.0",
     "react": "^16.13.1",
+    "react-dnd": "^10.0.2",
+    "react-dnd-html5-backend": "^10.0.2",
     "react-dom": "^16.13.1",
-    "react-draggable-hoc": "^2.3.0",
     "react-scripts": "3.4.1"
   },
   "scripts": {
