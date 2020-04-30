@@ -2,10 +2,7 @@ import React from 'react';
 import { Block } from './index';
 
 const Row = ({ rowName }) => {
-    console.log('rowName', rowName);
-    // const hide = rowName.filter((space) => {
-    //     space.y;
-    // });
+    // console.log('rowName', rowName);
 
     return (
         <section className="row">

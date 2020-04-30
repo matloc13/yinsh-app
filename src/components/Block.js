@@ -1,15 +1,41 @@
-import React, { useEffect, useRef } from 'react';
-import { useHandleStones } from './../utilHooks/index';
+import React, { useEffect, useRef, useContext, useState } from 'react';
+import { useHandleStones, useRingActions } from './../utilHooks/index';
+
+import { useDrop } from 'react-dnd';
+import Store from './../contexts/Store';
 
 const Block = ({ space, className }) => {
+    const { ring, rings } = useContext(Store);
     // console.log('space', space);
-    const { addStone } = useHandleStones();
+
+    const { moveRing, determineColor } = useHandleStones(rings);
+
+    const [ringData, drop] = useDrop({
+        accept: 'ring',
+        // canDrop: () => currentRing(ring.current),
+        drop: () => moveRing(ring.current, space.x, space.y, ring.color),
+        collect: (monitor) => ({
+            isOver: !!monitor.isOver(),
+            canDrop: !!monitor.canDrop(),
+            getDropResult: !!monitor.getDropResult(),
+        }),
+        // end: (monitor) => ({
+        //     const { id: dropID } = monitor.getItem();
+        //     const didDrop = monitor.didDrop()
+
+        // })
+    });
+    // console.log('ringData', ringData);
+    const { isOver, getDropResult } = ringData;
+
     const vertRef = useRef();
     const handlePoints = (e) => {
         e.persist();
-        // console.log('e', e.target.id);
-        vertRef.current.focus();
-        addStone(e.target.id);
+        let now = vertRef.current;
+        determineColor(e.target.id);
+        now.focus();
+
+        //
     };
 
     {
@@ -66,7 +92,7 @@ const Block = ({ space, className }) => {
                 return <span className={`tri ${className} y${space.y} hidden`}></span>;
             } else if (space.y === 2 || space.y === 20) {
                 return (
-                    <span className={`tri ${className} y${space.y} paint`}>
+                    <span ref={drop} className={`tri ${className} y${space.y} paint`}>
                         {className.includes('triangle-up') && (
                             <>
                                 <button
@@ -91,7 +117,7 @@ const Block = ({ space, className }) => {
                 return <span className={`tri ${className} y${space.y} hidden`}></span>;
             } else if (space.y === 2 || space.y === 20) {
                 return (
-                    <span className={`tri ${className} y${space.y} paint`}>
+                    <span ref={drop} className={`tri ${className} y${space.y} paint`}>
                         {className.includes('triangle-up') && (
                             <>
                                 <button
@@ -109,10 +135,10 @@ const Block = ({ space, className }) => {
 
         if (space.x === 8) {
             if (space.y === 1 || space.y === 19 || space.y === 20) {
-                return <span className={`tri ${className} y${space.y} hidden`}></span>;
+                return <span ref={drop} className={`tri ${className} y${space.y} hidden`}></span>;
             } else if (space.y === 2 || space.y === 18) {
                 return (
-                    <span className={`tri ${className} y${space.y} paint`}>
+                    <span ref={drop} className={`tri ${className} y${space.y} paint`}>
                         {className.includes('triangle-up') && (
                             <>
                                 <button
@@ -139,7 +165,7 @@ const Block = ({ space, className }) => {
                 return <span className={`tri ${className} y${space.y} hidden`}></span>;
             } else if (space.y === 4 || space.y === 18) {
                 return (
-                    <span className={`tri ${className} y${space.y} paint`}>
+                    <span ref={drop} className={`tri ${className} y${space.y} paint`}>
                         {className.includes('triangle-up') && (
                             <>
                                 <button
@@ -170,7 +196,7 @@ const Block = ({ space, className }) => {
                 return <span className={`tri ${className} y${space.y} hidden`}></span>;
             } else if (space.y === 4 || space.y === 6 || space.y === 14 || space.y === 16) {
                 return (
-                    <span className={`tri ${className} y${space.y} paint`}>
+                    <span ref={drop} className={`tri ${className} y${space.y} paint`}>
                         {className.includes('triangle-up') && (
                             <>
                                 <button
@@ -208,7 +234,7 @@ const Block = ({ space, className }) => {
                 return <span className={`tri ${className} y${space.y} hidden`}></span>;
             } else if (space.y === 8 || space.y === 10 || space.y === 12 || space.y === 14) {
                 return (
-                    <span className={`tri ${className} y${space.y} paint`}>
+                    <span ref={drop} className={`tri ${className} y${space.y} paint`}>
                         {className.includes('triangle-up') && (
                             <>
                                 <button
@@ -225,7 +251,7 @@ const Block = ({ space, className }) => {
         }
 
         return (
-            <span className={`tri ${className} y${space.y}`}>
+            <span ref={drop} className={`tri ${className} y${space.y}`}>
                 {className.includes('triangle-up') && (
                     <>
                         <button
