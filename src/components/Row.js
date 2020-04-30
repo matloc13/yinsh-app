@@ -1,12 +1,8 @@
 import React from 'react';
-import { Block, Ring } from './index';
+import { Block } from './index';
 
 const Row = ({ rowName }) => {
     // console.log('rowName', rowName);
-
-    // const hide = rowName.filter((space) => {
-    //     space.y;
-    // });
 
     return (
         <section className="row">

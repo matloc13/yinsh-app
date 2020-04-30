@@ -1,24 +1,44 @@
-// import React from 'react';
-// import { Stone } from './../components/index';
+import { useRingActions } from './index';
 
 const useHandleStones = () => {
-    const addStone = (id) => {
+    const { updateRing } = useRingActions();
+
+    // add new stone
+
+    const addStone = (id, color) => {
         const stone = document.getElementById(id);
-        const color = currentStoneFace();
-        stone.classList.add('white');
-        // stone.append(<Stone color={'black'} />);
+        stone.classList.add(color);
     };
 
-    const moveRing = (rID, x, y) => {
+    const moveRing = (rID, x, y, color) => {
         const ring = document.getElementById(rID);
-        console.log('ring', ring);
+        const vertID = `x${x}--y${y}`;
+        const vert = document.getElementById(vertID);
+        updateRing(vertID, rID);
+        addStone(vertID, color);
+        vert.append(ring);
     };
 
-    const currentStoneFace = () => {
-        return;
+    const determineColor = (id) => {
+        const stone = document.getElementById(id);
+        const list = stone.className;
+        const color = list.replace('vertice-top', ' ');
+        return color;
     };
 
-    return { addStone, moveRing };
+    const flipStone = (id) => {
+        const stone = document.getElementById(id);
+        const color = determineColor(id);
+
+        switch (color) {
+            case 'white':
+                return stone.classList.replace('white', 'black');
+            case 'black':
+                return stone.classList.replace('black', 'white');
+        }
+    };
+
+    return { flipStone, moveRing, determineColor };
 };
 
 export default useHandleStones;

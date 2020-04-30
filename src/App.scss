@@ -1,10 +1,19 @@
-$length: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+$length: (1, 2, 3, 4, 5, 6);
 $lines: grey;
 $board: white;
 $clear: transparent;
 
 .hidden {
     visibility: hidden;
+}
+.ring {
+    @each $num in $length {
+        &.ring#{$num} {
+            width: 24px;
+            height: 24px;
+            top: $num * 30px;
+        }
+    }
 }
 
 .grid {

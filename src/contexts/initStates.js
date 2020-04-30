@@ -1,33 +1,75 @@
 export const ringState = {
     current: 'ring1',
-    ring1: {
-        id: 'ring1',
-        location: { top: 20, right: 'unset', bottom: 'unset', left: 20 },
-        color: 'black',
-    },
-    ring2: {
-        id: 'ring2',
-        location: { top: 40, right: 'unset', bottom: 'unset', left: 20 },
-        color: 'black',
-    },
-    ring3: {
-        id: 'ring3',
-        location: { top: 60, right: 'unset', bottom: 'unset', left: 20 },
-        color: 'black',
-    },
-    ring4: {
-        id: 'ring4',
-        location: { top: 20, right: 20, bottom: 'unset', left: 'unset' },
-        color: 'white',
-    },
-    ring5: {
-        id: 'ring5',
-        location: { top: 40, right: 20, bottom: 'unset', left: 'unset' },
-        color: 'white',
-    },
-    ring6: {
-        id: 'ring6',
-        location: { top: 60, right: 20, bottom: 'unset', left: 'unset' },
-        color: 'white',
-    },
+    color: 'black',
+};
+
+export const ringsState = {
+    rings: [
+        {
+            ringid: 'ring1',
+            color: 'black',
+        },
+        {
+            ringid: 'ring2',
+            color: 'black',
+        },
+        {
+            ringid: 'ring3',
+            color: 'black',
+        },
+        {
+            ringid: 'ring4',
+            color: 'white',
+        },
+        {
+            ringid: 'ring5',
+            color: 'white',
+        },
+        {
+            ringid: 'ring6',
+            color: 'white',
+        },
+    ],
+};
+
+export const ring1State = {
+    id: 'ring1',
+    locations: ['offBoard'],
+    color: 'black',
+    inPlay: true,
+};
+
+export const ring2State = {
+    id: 'ring2',
+    locations: ['offBoard'],
+    color: 'black',
+    inPlay: true,
+};
+
+export const ring3State = {
+    id: 'ring3',
+    locations: ['offBoard'],
+    color: 'black',
+    inPlay: true,
+};
+
+export const ring4State = {
+    id: 'ring4',
+    locations: ['offBoard'],
+    color: 'white',
+    inPlay: true,
+};
+
+export const ring5State = {
+    id: 'ring5',
+    locations: ['offBoard'],
+    color: 'white',
+    inPlay: true,
+};
+
+export const ring6State = {
+    id: 'ring6',
+    locations: ['offBoard'],
+    color: 'white',
+    inPlay: true,
 };

@@ -1,34 +1,40 @@
-import React, { useEffect, useRef, useContext } from 'react';
-import { useHandleStones } from './../utilHooks/index';
+import React, { useEffect, useRef, useContext, useState } from 'react';
+import { useHandleStones, useRingActions } from './../utilHooks/index';
+
 import { useDrop } from 'react-dnd';
 import Store from './../contexts/Store';
 
 const Block = ({ space, className }) => {
-    const { ring } = useContext(Store);
+    const { ring, rings } = useContext(Store);
     // console.log('space', space);
-    const { moveRing } = useHandleStones();
-    const [collected, drop] = useDrop({
+
+    const { moveRing, determineColor } = useHandleStones(rings);
+
+    const [ringData, drop] = useDrop({
         accept: 'ring',
-        // canDrop: () => canMoveKnight(x, y),
-        drop: () => moveRing(ring.current, space.x, space.y),
+        // canDrop: () => currentRing(ring.current),
+        drop: () => moveRing(ring.current, space.x, space.y, ring.color),
         collect: (monitor) => ({
             isOver: !!monitor.isOver(),
             canDrop: !!monitor.canDrop(),
+            getDropResult: !!monitor.getDropResult(),
         }),
-    });
-    console.log('collected', collected);
+        // end: (monitor) => ({
+        //     const { id: dropID } = monitor.getItem();
+        //     const didDrop = monitor.didDrop()
 
-    const { addStone } = useHandleStones();
+        // })
+    });
+    // console.log('ringData', ringData);
+    const { isOver, getDropResult } = ringData;
+
     const vertRef = useRef();
     const handlePoints = (e) => {
         e.persist();
         let now = vertRef.current;
-        console.log('e.id', e.target.id);
-        console.log('now', now);
-        console.log('e', e.pageX);
-
+        determineColor(e.target.id);
         now.focus();
-        addStone(e.target.id);
+
         //
     };
 
