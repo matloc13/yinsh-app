@@ -7,13 +7,23 @@ $clear: transparent;
     visibility: hidden;
 }
 .ring {
+    position: absolute;
     @each $num in $length {
         &.ring#{$num} {
             width: 24px;
             height: 24px;
+            border-radius: 50%;
+            background-color: transparent;
+            z-index: 4;
             top: $num * 30px;
         }
     }
+}
+
+.onBoard {
+    position: absolute;
+    top: -12px !important;
+    left: -12px !important;
 }
 
 .grid {
