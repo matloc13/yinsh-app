@@ -1,11 +1,18 @@
 $length: (1, 2, 3, 4, 5, 6);
-$lines: grey;
-$board: white;
+$paper: rgb(206, 207, 211);
+$light-paper: rgb(211, 212, 215);
+$pen: rgb(69, 73, 76);
+$green: rgb(101, 109, 50);
+$blue: rgb(108, 144, 186);
 $clear: transparent;
 
 .hidden {
     visibility: hidden;
 }
+
+// *************************
+// RINGS           ******************
+// *************************
 .ring {
     position: absolute;
     @each $num in $length {
@@ -13,9 +20,9 @@ $clear: transparent;
             width: 24px;
             height: 24px;
             border-radius: 50%;
-            background-color: transparent;
+            background-color: $clear;
             z-index: 4;
-            top: $num * 30px;
+            top: $num * 32px;
         }
     }
 }
@@ -26,19 +33,22 @@ $clear: transparent;
     left: -12px !important;
 }
 
+// ***********************
+//    BOARD          ******************
+//************************
 .grid {
     width: 100vw;
     min-height: 100vh;
     display: flex;
     flex-flow: column;
     margin: 0 auto;
-    background-color: grey;
-    padding: 2%;
+    background-color: $pen;
+    padding: 10% 2%;
 }
+
 .row {
     height: 52px;
     width: 100%;
-
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -46,6 +56,10 @@ $clear: transparent;
         padding-left: 26px;
     }
 }
+
+// ******************
+// triangles      **************
+// *******************
 
 .tri {
     margin-top: -2px;
@@ -56,32 +70,36 @@ $clear: transparent;
     width: 0;
     height: 0;
     position: relative;
-    border-left: 25px solid transparent;
-    border-right: 25px solid transparent;
-    border-bottom: 50px solid $board;
+    border-left: 25px solid $clear;
+    border-right: 25px solid $clear;
+    border-bottom: 50px solid $paper;
     &.paint {
-        border-color: transparent;
+        border-color: $clear;
     }
+
     .vertice {
-        color: transparent;
+        color: $clear;
         &-top {
             position: absolute;
             top: -4px;
             left: -3px;
-            border: 1px solid green;
+            border: 1px solid $green;
+            background-color: $light-paper;
             padding: 3px;
             border-radius: 50%;
             &.black {
                 top: -8px;
                 left: -8px;
                 border: 6px solid black;
-                box-shadow: 0 0 2px 2px indianred;
+                box-shadow: 0 0 2px 2px $blue;
+                background-color: black;
             }
             &.white {
                 top: -8px;
                 left: -8px;
                 border: 6px solid white;
-                box-shadow: 0 0 2px 2px indianred;
+                box-shadow: 0 0 2px 2px $blue;
+                background-color: white;
             }
         }
     }
@@ -90,10 +108,10 @@ $clear: transparent;
 .triangle-down {
     width: 0;
     height: 0;
-    border-left: 25px solid transparent;
-    border-right: 25px solid transparent;
-    border-top: 50px solid $board;
+    border-left: 25px solid $clear;
+    border-right: 25px solid $clear;
+    border-top: 50px solid $paper;
     .vertice {
-        color: transparent;
+        color: $clear;
     }
 }
