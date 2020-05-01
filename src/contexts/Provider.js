@@ -10,6 +10,7 @@ import {
     ring4State,
     ring5State,
     ring6State,
+    boardArray,
 } from './initStates';
 import {
     ringReducer,
@@ -20,6 +21,7 @@ import {
     ring4Reducer,
     ring5Reducer,
     ring6Reducer,
+    boardVerReducer,
 } from './reducers/index';
 
 const Provider = () => {
@@ -31,6 +33,7 @@ const Provider = () => {
     const [ring4, dispatchRing4] = useReducer(ring4Reducer, ring4State);
     const [ring5, dispatchRing5] = useReducer(ring5Reducer, ring5State);
     const [ring6, dispatchRing6] = useReducer(ring6Reducer, ring6State);
+    const [boardArr, dispatchBoardArr] = useReducer(boardVerReducer, boardArray);
 
     const dispatch = (action) => {
         [
@@ -42,17 +45,20 @@ const Provider = () => {
             dispatchRing4,
             dispatchRing5,
             dispatchRing6,
+            dispatchBoardArr,
         ].forEach((fn) => {
             fn(action);
         });
     };
     useEffect(() => {
-        console.log('ring1', ring1);
+        // console.log('ring1', ring1);
         return () => {};
     }, [ring1]);
 
     return (
-        <Store.Provider value={{ ring, rings, ring1, ring2, ring3, ring4, ring5, ring6, dispatch }}>
+        <Store.Provider
+            value={{ ring, rings, ring1, ring2, ring3, ring4, ring5, ring6, boardArr, dispatch }}
+        >
             <App />
         </Store.Provider>
     );

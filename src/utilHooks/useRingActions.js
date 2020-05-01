@@ -1,8 +1,13 @@
 import { useContext } from 'react';
 import Store from './../contexts/Store';
+import { useCheckStraightLine } from './index';
 
 const useRingActions = () => {
-    const { ring, ring1, ring2, ring3, ring4, ring5, ring6, dispatch } = useContext(Store);
+    const { ring, ring1, ring2, ring3, ring4, ring5, ring6, boardArr, dispatch } = useContext(
+        Store
+    );
+    const { result, checkStraightline, checkRingBlocking } = useCheckStraightLine();
+    const allRings = [ring1, ring2, ring3, ring4, ring5, ring6];
     // console.log('ring', ring);
     // console.log('ring1', ring1);
     // console.log('ring2', ring2);
@@ -11,9 +16,83 @@ const useRingActions = () => {
     // console.log('ring5', ring5);
     // console.log('ring6', ring6);
 
+    const resetRing = (rID) => {
+        const curRing = ringVariable(rID);
+        // console.log('curRing', curRing);
+        // const ring = document.getElementById(rID);
+        const vertID = allRings[curRing].locations[allRings[curRing].locations.length - 1];
+        // const vert = document.getElementById(vertID);
+        console.log('vertID', vertID);
+        return updateRing(vertID, rID);
+        // vert.append(ring);
+    };
+
+    const checkNew = (n) => {
+        // console.log('boardArr', boardArr);
+        let clear = false;
+        boardArr.forEach((vert) => {
+            if (vert.id === n && vert.covered) {
+                clear = false;
+                return;
+            } else if (vert.id === n && vert.covered === false) {
+                clear = true;
+                return;
+            }
+        });
+        return clear;
+    };
+
+    const checkPrev = (last) => {
+        if (last.includes('offBoard')) {
+            return true;
+        } else {
+            return last;
+        }
+    };
+
+    const checkVertStones = (v, x, y) => {
+        const prevVert = checkPrev(v.last);
+        const newVert = checkNew(v.newVert);
+
+        if (prevVert === true && newVert) {
+            // console.log('prevVert', prevVert, newVert);
+            return true;
+        } else if (prevVert && newVert) {
+            // console.log('prevVert', prevVert, newVert);
+            checkStraightline(v, x, y);
+
+            const ringClear = checkRingBlocking();
+            return result === true && ringClear === true ? true : false;
+        }
+    };
+
+    const findVerts = (rID, newVert) => {
+        const prev = allRings[ringVariable(rID)].locations;
+        const last = prev[prev.length - 1];
+        return { last, newVert };
+    };
+
+    const canMove = (rID, x, y, color) => {
+        const newVertID = `x${x}--y${y}`;
+        const verts = findVerts(rID, newVertID);
+        const vertClear = checkVertStones(verts, x, y);
+        console.log('vertClear', vertClear);
+        if (!vertClear === true) {
+            return false;
+        }
+        return true;
+        /* 
+        func 4- is there a ring between previous vert and new vert?
+        
+        CHECK stones on route,  
+        ??????????
+        - is stone in path of ring?    ( true flip stone )
+        */
+    };
+
     const ringVariable = (ring) => {
         const ringIndex = Number(ring.replace('ring', ' '), 10);
-        return ringIndex;
+        return ringIndex - 1;
     };
 
     const setActiveRing = (e, color) => {
@@ -27,8 +106,9 @@ const useRingActions = () => {
     };
 
     const updateRing = (vertID, ringID) => {
-        const allRings = [ring1, ring2, ring3, ring4, ring5, ring6];
-        const curRing = ringVariable(ringID) - 1;
+        const curRing = ringVariable(ringID);
+        console.log('ringID', ringID);
+        console.log('curRing', curRing);
         return dispatch({
             type: `SET_LOCATION_${ringID}`,
             payload: {
@@ -37,7 +117,7 @@ const useRingActions = () => {
         });
     };
 
-    return { setActiveRing, updateRing };
+    return { setActiveRing, updateRing, canMove, resetRing };
 };
 
 export default useRingActions;

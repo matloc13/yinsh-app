@@ -9,33 +9,27 @@ const Block = ({ space, className }) => {
     // console.log('space', space);
 
     const { moveRing, determineColor } = useHandleStones(rings);
+    const { canMove, resetRing } = useRingActions();
 
     const [ringData, drop] = useDrop({
         accept: 'ring',
-        // canDrop: () => currentRing(ring.current),
+        canDrop: () => canMove(ring.current, space.x, space.y, ring.color),
         drop: () => moveRing(ring.current, space.x, space.y, ring.color),
         collect: (monitor) => ({
             isOver: !!monitor.isOver(),
             canDrop: !!monitor.canDrop(),
             getDropResult: !!monitor.getDropResult(),
         }),
-        // end: (monitor) => ({
-        //     const { id: dropID } = monitor.getItem();
-        //     const didDrop = monitor.didDrop()
-
-        // })
     });
     // console.log('ringData', ringData);
-    const { isOver, getDropResult } = ringData;
-
+    const { isOver, getDropResult, canDrop } = ringData;
+    // console.log('canDrop', canDrop);
     const vertRef = useRef();
     const handlePoints = (e) => {
         e.persist();
         let now = vertRef.current;
         determineColor(e.target.id);
         now.focus();
-
-        //
     };
 
     {
