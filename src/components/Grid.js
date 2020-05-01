@@ -14,7 +14,7 @@ const Grid = () => {
     useEffect(() => {
         let board = buildBoard(12);
         if (board) {
-            console.log('board', board);
+            // console.log('board', board);
             setGameboard({ ...gameboard, board });
         }
     }, []);

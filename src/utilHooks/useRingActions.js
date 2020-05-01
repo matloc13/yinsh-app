@@ -6,7 +6,7 @@ const useRingActions = () => {
     const { ring, ring1, ring2, ring3, ring4, ring5, ring6, boardArr, dispatch } = useContext(
         Store
     );
-    const { checkStraightline } = useCheckStraightLine();
+    const { result, checkStraightline, checkRingBlocking } = useCheckStraightLine();
     const allRings = [ring1, ring2, ring3, ring4, ring5, ring6];
     // console.log('ring', ring);
     // console.log('ring1', ring1);
@@ -16,35 +16,53 @@ const useRingActions = () => {
     // console.log('ring5', ring5);
     // console.log('ring6', ring6);
 
+    const resetRing = (rID) => {
+        const curRing = ringVariable(rID);
+        // console.log('curRing', curRing);
+        // const ring = document.getElementById(rID);
+        const vertID = allRings[curRing].locations[allRings[curRing].locations.length - 1];
+        // const vert = document.getElementById(vertID);
+        console.log('vertID', vertID);
+        return updateRing(vertID, rID);
+        // vert.append(ring);
+    };
+
     const checkNew = (n) => {
-        console.log('boardArr', boardArr);
-        const result = boardArr.forEach((vert) => {
+        // console.log('boardArr', boardArr);
+        let clear = false;
+        boardArr.forEach((vert) => {
             if (vert.id === n && vert.covered) {
-                return false;
+                clear = false;
+                return;
             } else if (vert.id === n && vert.covered === false) {
-                return true;
+                clear = true;
+                return;
             }
         });
-        return result;
+        return clear;
     };
 
     const checkPrev = (last) => {
         if (last.includes('offBoard')) {
             return true;
+        } else {
+            return last;
         }
-        return last;
     };
 
-    const checkVertStones = async (v, x, y) => {
-        try {
-            const prevVert = await checkPrev(v.last);
-            const newVert = await checkNew(v.newVert);
-            if (prevVert === true && newVert) {
-                return true;
-            }
-            const validate = checkStraightline(v, x, y);
-        } catch (error) {
-            console.error(error);
+    const checkVertStones = (v, x, y) => {
+        const prevVert = checkPrev(v.last);
+        const newVert = checkNew(v.newVert);
+
+        if (prevVert === true && newVert) {
+            // console.log('prevVert', prevVert, newVert);
+            return true;
+        } else if (prevVert && newVert) {
+            // console.log('prevVert', prevVert, newVert);
+            checkStraightline(v, x, y);
+
+            const ringClear = checkRingBlocking();
+            return result === true && ringClear === true ? true : false;
         }
     };
 
@@ -57,21 +75,19 @@ const useRingActions = () => {
     const canMove = (rID, x, y, color) => {
         const newVertID = `x${x}--y${y}`;
         const verts = findVerts(rID, newVertID);
-        const vertCovered = checkVertStones(verts, x, y);
-
+        const vertClear = checkVertStones(verts, x, y);
+        console.log('vertClear', vertClear);
+        if (!vertClear === true) {
+            return false;
+        }
+        return true;
         /* 
-       func one-  find previous vert of current ring , 
-       func 2  - is new vert covered?       ( true  cannot move else can move)
-       func 3  - is new vert in a straightline from previous vert?
         func 4- is there a ring between previous vert and new vert?
         
         CHECK stones on route,  
         ??????????
         - is stone in path of ring?    ( true flip stone )
-    
-    */
-        // console.log('newVertID', newVertID);
-        return true;
+        */
     };
 
     const ringVariable = (ring) => {
@@ -91,6 +107,8 @@ const useRingActions = () => {
 
     const updateRing = (vertID, ringID) => {
         const curRing = ringVariable(ringID);
+        console.log('ringID', ringID);
+        console.log('curRing', curRing);
         return dispatch({
             type: `SET_LOCATION_${ringID}`,
             payload: {
@@ -99,7 +117,7 @@ const useRingActions = () => {
         });
     };
 
-    return { setActiveRing, updateRing, canMove };
+    return { setActiveRing, updateRing, canMove, resetRing };
 };
 
 export default useRingActions;

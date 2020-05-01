@@ -1,20 +1,27 @@
 import React, { useEffect, useContext } from 'react';
-import { useRingActions } from './../utilHooks/index';
+import { useRingActions, useHandleStones } from './../utilHooks/index';
 import { useDrag } from 'react-dnd';
 import Store from './../contexts/Store';
 
 const Ring = ({ color, ringNumber, location }) => {
     const { ring } = useContext(Store);
     const previousIndex = location; // find ring id then find last intem in that ring aray
+    const { setActiveRing, resetRing } = useRingActions();
     const [ringData, drag] = useDrag({
         item: { type: 'ring', ringNumber, previousIndex },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
-            didDrop: !!monitor.getDropResult(),
+            didDrop: !!monitor.didDrop(),
         }),
+        end: (dropResult, monitor) => {
+            const { id: droppedId } = monitor.getItem();
+            const didDrop = monitor.didDrop();
+            if (!didDrop) {
+                resetRing(ringNumber);
+            }
+        },
     });
 
-    const { setActiveRing } = useRingActions();
     const { isDragging, didDrop } = ringData;
 
     // const [pos, setpos] = useState({ top: '', left: '' });
@@ -37,7 +44,6 @@ const Ring = ({ color, ringNumber, location }) => {
             onMouseOver={(e) => setActiveRing(e, color)}
             style={{
                 border: `3px solid ${color}`,
-
                 boxShadow: ` 0 0 8px  ${isDragging ? 'green' : 'transparent'} `,
             }}
         ></div>

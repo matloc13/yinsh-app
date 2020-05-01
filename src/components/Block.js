@@ -9,7 +9,7 @@ const Block = ({ space, className }) => {
     // console.log('space', space);
 
     const { moveRing, determineColor } = useHandleStones(rings);
-    const { canMove } = useRingActions();
+    const { canMove, resetRing } = useRingActions();
 
     const [ringData, drop] = useDrop({
         accept: 'ring',
@@ -20,15 +20,10 @@ const Block = ({ space, className }) => {
             canDrop: !!monitor.canDrop(),
             getDropResult: !!monitor.getDropResult(),
         }),
-        // end: (monitor) => ({
-        //     const { id: dropID } = monitor.getItem();
-        //     const didDrop = monitor.didDrop()
-
-        // })
     });
     // console.log('ringData', ringData);
-    const { isOver, getDropResult } = ringData;
-
+    const { isOver, getDropResult, canDrop } = ringData;
+    // console.log('canDrop', canDrop);
     const vertRef = useRef();
     const handlePoints = (e) => {
         e.persist();
@@ -258,9 +253,7 @@ const Block = ({ space, className }) => {
                             ref={vertRef}
                             className="vertice-top"
                             onClick={handlePoints}
-                        >
-                            {space.y}
-                        </button>
+                        ></button>
                     </>
                 )}
             </span>

@@ -51,7 +51,7 @@ const Provider = () => {
         });
     };
     useEffect(() => {
-        console.log('ring1', ring1);
+        // console.log('ring1', ring1);
         return () => {};
     }, [ring1]);
 
