@@ -9,10 +9,11 @@ const Block = ({ space, className }) => {
     // console.log('space', space);
 
     const { moveRing, determineColor } = useHandleStones(rings);
+    const { canMove } = useRingActions();
 
     const [ringData, drop] = useDrop({
         accept: 'ring',
-        // canDrop: () => currentRing(ring.current),
+        canDrop: () => canMove(ring.current, space.x, space.y, ring.color),
         drop: () => moveRing(ring.current, space.x, space.y, ring.color),
         collect: (monitor) => ({
             isOver: !!monitor.isOver(),
@@ -34,8 +35,6 @@ const Block = ({ space, className }) => {
         let now = vertRef.current;
         determineColor(e.target.id);
         now.focus();
-
-        //
     };
 
     {
@@ -259,7 +258,9 @@ const Block = ({ space, className }) => {
                             ref={vertRef}
                             className="vertice-top"
                             onClick={handlePoints}
-                        ></button>
+                        >
+                            {space.y}
+                        </button>
                     </>
                 )}
             </span>
