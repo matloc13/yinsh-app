@@ -1,12 +1,13 @@
 import { useContext } from 'react';
 import Store from './../contexts/Store';
-import { useCheckStraightLine } from './index';
+import { useCheckStraightLine, useCheckRingBlocking } from './index';
 
 const useRingActions = () => {
     const { ring, ring1, ring2, ring3, ring4, ring5, ring6, boardArr, dispatch } = useContext(
         Store
     );
-    const { result, checkStraightline, checkRingBlocking } = useCheckStraightLine();
+    const { result, checkStraightline } = useCheckStraightLine();
+    const { checkRingBlocking } = useCheckRingBlocking();
     const allRings = [ring1, ring2, ring3, ring4, ring5, ring6];
     // console.log('ring', ring);
     // console.log('ring1', ring1);
@@ -16,15 +17,11 @@ const useRingActions = () => {
     // console.log('ring5', ring5);
     // console.log('ring6', ring6);
 
-    const resetRing = (rID) => {
+    const resetRing = (rID, previousIndex) => {
         const curRing = ringVariable(rID);
-        // console.log('curRing', curRing);
-        // const ring = document.getElementById(rID);
-        const vertID = allRings[curRing].locations[allRings[curRing].locations.length - 1];
-        // const vert = document.getElementById(vertID);
-        console.log('vertID', vertID);
-        return updateRing(vertID, rID);
-        // vert.append(ring);
+        // const vertID = allRings[curRing].locations[allRings[curRing].locations.length - 1];
+        // console.log('vertID', vertID);
+        return updateRing(previousIndex, rID);
     };
 
     const checkNew = (n) => {
@@ -61,7 +58,7 @@ const useRingActions = () => {
             // console.log('prevVert', prevVert, newVert);
             checkStraightline(v, x, y);
 
-            const ringClear = checkRingBlocking();
+            const ringClear = checkRingBlocking(v, x, y);
             return result === true && ringClear === true ? true : false;
         }
     };
@@ -76,7 +73,7 @@ const useRingActions = () => {
         const newVertID = `x${x}--y${y}`;
         const verts = findVerts(rID, newVertID);
         const vertClear = checkVertStones(verts, x, y);
-        console.log('vertClear', vertClear);
+        // console.log('vertClear', vertClear);
         if (!vertClear === true) {
             return false;
         }
@@ -107,8 +104,6 @@ const useRingActions = () => {
 
     const updateRing = (vertID, ringID) => {
         const curRing = ringVariable(ringID);
-        console.log('ringID', ringID);
-        console.log('curRing', curRing);
         return dispatch({
             type: `SET_LOCATION_${ringID}`,
             payload: {
@@ -117,7 +112,7 @@ const useRingActions = () => {
         });
     };
 
-    return { setActiveRing, updateRing, canMove, resetRing };
+    return { setActiveRing, updateRing, canMove, resetRing, findVerts };
 };
 
 export default useRingActions;

@@ -3,13 +3,10 @@ import { useState } from 'react';
 const useCheckStraightLine = () => {
     const [result, setResult] = useState(false);
 
-    const checkRingBlocking = () => {
-        return true;
-    };
-
     const checkStraightline = (v, x, y) => {
-        let lidy = Number(v.last.replace('x1--y', ''), 10);
-
+        // const reggie = ;
+        let lidy = Number(v.last.split('--')[1].replace('y', ''), 10);
+        console.log('lidy x y', lidy, x, y);
         if (v.last.match(`x1--y`)) {
             switch (x) {
                 case 1:
@@ -4793,7 +4790,7 @@ const useCheckStraightLine = () => {
         }
         return result;
     };
-    return { result, checkStraightline, checkRingBlocking };
+    return { result, checkStraightline };
 };
 
 export default useCheckStraightLine;

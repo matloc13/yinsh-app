@@ -5,7 +5,29 @@ $pen: rgb(69, 73, 76);
 $green: rgb(101, 109, 50);
 $blue: rgb(108, 144, 186);
 $clear: transparent;
+$ringBlack: black;
+$ringWhite: white;
 
+// sizes
+
+$ringBox: 26px;
+$ringPos: -10px;
+
+// row
+
+$rowHeight: 52px;
+$rowPaddingLeft: 26px;
+// tri
+
+$borderLR: 25px;
+$borderTB: 50px;
+$margin-top: -2px;
+$margin-left: -24px;
+
+// stone
+$vertPadding: 6px;
+$stoneTop: -12px;
+$stoneLeft: -11px;
 .hidden {
     visibility: hidden;
 }
@@ -17,8 +39,8 @@ $clear: transparent;
     position: absolute;
     @each $num in $length {
         &.ring#{$num} {
-            width: 24px;
-            height: 24px;
+            width: $ringBox;
+            height: $ringBox;
             border-radius: 50%;
             background-color: $clear;
             z-index: 4;
@@ -29,8 +51,8 @@ $clear: transparent;
 
 .onBoard {
     position: absolute;
-    top: -12px !important;
-    left: -12px !important;
+    top: $ringPos !important;
+    left: $ringPos !important;
 }
 
 // ***********************
@@ -47,13 +69,13 @@ $clear: transparent;
 }
 
 .row {
-    height: 52px;
+    height: $rowHeight;
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
     &:nth-child(2n) {
-        padding-left: 26px;
+        padding-left: $rowPaddingLeft;
     }
 }
 
@@ -62,17 +84,17 @@ $clear: transparent;
 // *******************
 
 .tri {
-    margin-top: -2px;
-    margin-left: -24px;
+    margin-top: $margin-top;
+    margin-left: $margin-left;
 }
 
 .triangle-up {
     width: 0;
     height: 0;
     position: relative;
-    border-left: 25px solid $clear;
-    border-right: 25px solid $clear;
-    border-bottom: 50px solid $paper;
+    border-left: $borderLR solid $clear;
+    border-right: $borderLR solid $clear;
+    border-bottom: $borderTB solid $paper;
     &.paint {
         border-color: $clear;
     }
@@ -81,25 +103,25 @@ $clear: transparent;
         color: $clear;
         &-top {
             position: absolute;
-            top: -4px;
-            left: -3px;
+            top: $stoneTop + 4;
+            left: $stoneLeft + 4;
             border: 1px solid $green;
             background-color: $light-paper;
-            padding: 3px;
+            padding: $vertPadding;
             border-radius: 50%;
             &.black {
-                top: -8px;
-                left: -8px;
-                border: 6px solid black;
+                top: $stoneTop;
+                left: $stoneLeft;
+                border: 6px solid $ringBlack;
                 box-shadow: 0 0 2px 2px $blue;
-                background-color: black;
+                background-color: $ringBlack;
             }
             &.white {
-                top: -8px;
-                left: -8px;
-                border: 6px solid white;
+                top: $stoneTop;
+                left: $stoneLeft;
+                border: 6px solid $ringWhite;
                 box-shadow: 0 0 2px 2px $blue;
-                background-color: white;
+                background-color: $ringWhite;
             }
         }
     }
@@ -108,9 +130,9 @@ $clear: transparent;
 .triangle-down {
     width: 0;
     height: 0;
-    border-left: 25px solid $clear;
-    border-right: 25px solid $clear;
-    border-top: 50px solid $paper;
+    border-left: $borderLR solid $clear;
+    border-right: $borderLR solid $clear;
+    border-top: $borderTB solid $paper;
     .vertice {
         color: $clear;
     }

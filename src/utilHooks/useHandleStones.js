@@ -14,9 +14,9 @@ const useHandleStones = () => {
         const ring = document.getElementById(rID);
         const vertID = `x${x}--y${y}`;
         const vert = document.getElementById(vertID);
-        updateRing(vertID, rID);
-        addStone(vertID, color);
         vert.append(ring);
+        addStone(vertID, color);
+        updateRing(vertID, rID);
     };
 
     const determineColor = (id) => {
