@@ -10,6 +10,8 @@ const useHandleStones = () => {
         stone.classList.add(color);
     };
 
+    // move and update ring location
+
     const moveRing = (rID, x, y, color) => {
         const ring = document.getElementById(rID);
         const vertID = `x${x}--y${y}`;

@@ -3,6 +3,7 @@ import useHandleStones from './useHandleStones';
 import useRingActions from './useRingActions';
 import useCheckStraightLine from './useCheckStraightLine';
 import useCheckRingBlocking from './useCheckRingBlocking';
+import useVertObj from './useVertObj';
 
 export {
     useAssembleBoard,
@@ -10,4 +11,5 @@ export {
     useRingActions,
     useCheckStraightLine,
     useCheckRingBlocking,
+    useVertObj,
 };

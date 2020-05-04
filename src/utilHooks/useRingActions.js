@@ -18,7 +18,7 @@ const useRingActions = () => {
     // console.log('ring6', ring6);
 
     const resetRing = (rID, previousIndex) => {
-        const curRing = ringVariable(rID);
+        // const curRing = ringVariable(rID);
         // const vertID = allRings[curRing].locations[allRings[curRing].locations.length - 1];
         // console.log('vertID', vertID);
         return updateRing(previousIndex, rID);
@@ -58,7 +58,7 @@ const useRingActions = () => {
             // console.log('prevVert', prevVert, newVert);
             checkStraightline(v, x, y);
 
-            const ringClear = checkRingBlocking(v, x, y);
+            const ringClear = checkRingBlocking(v.last, x, y);
             return result === true && ringClear === true ? true : false;
         }
     };

@@ -17,7 +17,7 @@ const Ring = ({ color, ringNumber }) => {
         end: (dropResult, monitor) => {
             console.log('dropResult', dropResult);
             const didDrop = monitor.didDrop();
-            console.log('didDrop', didDrop);
+            // console.log('didDrop', didDrop);
             if (!didDrop) {
                 resetRing(ringNumber, previousIndex);
             }

@@ -4,9 +4,8 @@ const useCheckStraightLine = () => {
     const [result, setResult] = useState(false);
 
     const checkStraightline = (v, x, y) => {
-        // const reggie = ;
         let lidy = Number(v.last.split('--')[1].replace('y', ''), 10);
-        console.log('lidy x y', lidy, x, y);
+        // console.log('lidy x y', lidy, x, y);
         if (v.last.match(`x1--y`)) {
             switch (x) {
                 case 1:

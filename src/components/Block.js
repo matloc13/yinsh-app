@@ -6,8 +6,6 @@ import Store from './../contexts/Store';
 
 const Block = ({ space, className }) => {
     const { ring, rings } = useContext(Store);
-    // console.log('space', space);
-
     const { moveRing, determineColor } = useHandleStones(rings);
     const { canMove } = useRingActions();
 
@@ -257,8 +255,7 @@ const Block = ({ space, className }) => {
                             className="vertice-top"
                             onClick={handlePoints}
                         >
-                            {/* 
-                            {space.y} */}
+                            {space.y}
                         </button>
                     </>
                 )}
