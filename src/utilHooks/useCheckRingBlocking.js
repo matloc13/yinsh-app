@@ -14,7 +14,7 @@ const useCheckRingBlocking = () => {
     }, [vertObj]);
 
     const handleCheck = () => {
-        const check = {
+        const checkRefs = {
             xdif: findDifference(vertObj.prevX, vertObj.newX),
             ydif: findDifference(vertObj.prevY, vertObj.newY),
             spaces: findSpaces(
@@ -23,7 +23,8 @@ const useCheckRingBlocking = () => {
                 vertObj
             ),
         };
-        console.log('check', check);
+        console.log('check', checkRefs);
+        checkSpace(checkRefs);
         return;
     };
 
