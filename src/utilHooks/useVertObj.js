@@ -20,19 +20,50 @@ const useVertObj = () => {
         return { prevX: prevX, prevY: prevY, newX: x, newY: y };
     };
 
+    // ********************
+    // find difference *******************
+    // *********************
+
+    const findDifference = (p, n) => {
+        return n - p;
+    };
+
     // *******************
-    //  find spaces *************
+    // findEven ******************************
+    // *************************
+
+    const findEven = (n) => {
+        if (n % 2 === 0) {
+            return true;
+        }
+        return false;
+    };
+
+    // *******************
+    //  find spaces  between vertices *************
     //*********************
 
     const findSpaces = (x, y, vertObj) => {
         const spaces = [];
 
+        // horizontal *****************
+        // ********************
+
         if (x === 0) {
-            for (let i = 0; i < y / 2; i++) {
-                spaces.push({ x: vertObj.newX, y: (vertObj.prevY += 2) });
+            if (y > 1) {
+                for (let i = 0; i < y / 2; i++) {
+                    spaces.push({ x: vertObj.newX, y: (vertObj.prevY += 2) });
+                }
+            }
+            if (y < -1) {
+                for (let i = 0; i > y / 2; i--) {
+                    spaces.push({ x: vertObj.newX, y: (vertObj.prevY -= 2) });
+                }
             }
         }
 
+        // one row up or down **************
+        // *********************
         if (x === 1 || x === -1) {
             for (let i = 0; i < y / 2; i++) {
                 spaces.push({ x: vertObj.newX, y: vertObj.newY });
@@ -137,25 +168,6 @@ const useVertObj = () => {
             }
         }
         return spaces;
-    };
-
-    // ********************
-    // find difference *******************
-    // *********************
-
-    const findDifference = (p, n) => {
-        return n - p;
-    };
-
-    // *******************
-    // findEven ******************************
-    // *************************
-
-    const findEven = (n) => {
-        if (n % 2 === 0) {
-            return true;
-        }
-        return false;
     };
 
     return { createVertObj, findEven, findDifference, findSpaces };
