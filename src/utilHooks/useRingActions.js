@@ -63,9 +63,6 @@ const useRingActions = () => {
             } else {
                 return false;
             }
-
-            // console.log('ringClear', ringClear, newP);
-            // return result === true && ringClear === true ? true : false;
         }
     };
 
