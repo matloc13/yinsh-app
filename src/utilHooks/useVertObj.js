@@ -1,14 +1,9 @@
-import { useState, useEffect } from 'react';
+const useVertObj = () => {
+    // ******************
+    // VERT OBJ **********************
+    // **********************
 
-const useVertObj = (v, x, y) => {
-    const [vertObj, setVertObj] = useState({
-        prevX: 0,
-        prevY: 0,
-        newX: 0,
-        newY: 0,
-    });
-
-    useEffect(() => {
+    const createVertObj = (v, x, y) => {
         const reggie = new RegExp(/[x-y]/);
         let prevX;
         let prevY;
@@ -21,11 +16,149 @@ const useVertObj = (v, x, y) => {
                     return (prevY = Number(ele.replace(reggie, ''), 10));
             }
         });
-        setVertObj({ ...vertObj, prevX: prevX, prevY: prevY, newX: x, newY: y });
-        return () => {};
-    }, [v, x, y]);
 
-    return { vertObj };
+        return { prevX: prevX, prevY: prevY, newX: x, newY: y };
+    };
+
+    // *******************
+    //  find spaces *************
+    //*********************
+
+    const findSpaces = (x, y, vertObj) => {
+        const spaces = [];
+
+        if (x === 0) {
+            for (let i = 0; i < y / 2; i++) {
+                spaces.push({ x: vertObj.newX, y: (vertObj.prevY += 2) });
+            }
+        }
+
+        if (x === 1 || x === -1) {
+            for (let i = 0; i < y / 2; i++) {
+                spaces.push({ x: vertObj.newX, y: vertObj.newY });
+            }
+        }
+
+        // top down  to the right *****************
+        // *******************
+
+        if (x > 1 && y > 1) {
+            if (findEven(vertObj.prevX) === true) {
+                for (let i = 0; i < x; i++) {
+                    if (findEven(i) === false) {
+                        spaces.push({ x: (vertObj.prevX += 1), y: (vertObj.prevY += 0) });
+                    } else {
+                        spaces.push({ x: (vertObj.prevX += 1), y: (vertObj.prevY += 2) });
+                    }
+                }
+            }
+            if (findEven(vertObj.prevX) === false) {
+                for (let i = 0; i < x; i++) {
+                    if (findEven(i) === true) {
+                        spaces.push({ x: (vertObj.prevX += 1), y: (vertObj.prevY += 0) });
+                    } else {
+                        spaces.push({ x: (vertObj.prevX += 1), y: (vertObj.prevY += 2) });
+                    }
+                }
+            }
+        }
+
+        //top down to the left **************
+        // ********************
+
+        if (x > 1 && y < -1) {
+            if (findEven(vertObj.prevX) === true) {
+                for (let i = 0; i < x; i++) {
+                    if (findEven(i) === true) {
+                        spaces.push({ x: (vertObj.prevX += 1), y: (vertObj.prevY -= 0) });
+                    } else {
+                        spaces.push({ x: (vertObj.prevX += 1), y: (vertObj.prevY -= 2) });
+                    }
+                }
+            }
+            if (findEven(vertObj.prevX) === false) {
+                for (let i = 0; i < x; i++) {
+                    if (findEven(i) === false) {
+                        spaces.push({ x: (vertObj.prevX += 1), y: (vertObj.prevY -= 0) });
+                    } else {
+                        spaces.push({ x: (vertObj.prevX += 1), y: (vertObj.prevY -= 2) });
+                    }
+                }
+            }
+        }
+
+        // up to the left ************
+        // *********************
+
+        if (x < -1 && y < -1) {
+            if (findEven(vertObj.prevX) === false) {
+                for (let i = 0; i > x; i--) {
+                    if (findEven(i) === false) {
+                        spaces.push({ x: (vertObj.prevX -= 1), y: (vertObj.prevY -= 0) });
+                    } else {
+                        spaces.push({ x: (vertObj.prevX -= 1), y: (vertObj.prevY -= 2) });
+                    }
+                }
+            }
+
+            if (findEven(vertObj.prevX) === true) {
+                for (let i = 0; i > x; i--) {
+                    if (findEven(i) === true) {
+                        spaces.push({ x: (vertObj.prevX -= 1), y: (vertObj.prevY -= 0) });
+                    } else {
+                        spaces.push({ x: (vertObj.prevX -= 1), y: (vertObj.prevY -= 2) });
+                    }
+                }
+            }
+        }
+
+        // up to the right *******************
+        // *******************
+
+        if (x < -1 && y > 1) {
+            if (findEven(vertObj.prevX) === false) {
+                for (let i = 0; i > x; i--) {
+                    if (findEven(i) === true) {
+                        spaces.push({ x: (vertObj.prevX -= 1), y: (vertObj.prevY += 0) });
+                    } else {
+                        spaces.push({ x: (vertObj.prevX -= 1), y: (vertObj.prevY += 2) });
+                    }
+                }
+            }
+
+            if (findEven(vertObj.prevX) === true) {
+                for (let i = 0; i > x; i--) {
+                    if (findEven(i) === false) {
+                        spaces.push({ x: (vertObj.prevX -= 1), y: (vertObj.prevY += 0) });
+                    } else {
+                        spaces.push({ x: (vertObj.prevX -= 1), y: (vertObj.prevY += 2) });
+                    }
+                }
+            }
+        }
+        return spaces;
+    };
+
+    // ********************
+    // find difference *******************
+    // *********************
+
+    const findDifference = (p, n) => {
+        return n - p;
+    };
+
+    // *******************
+    // findEven ******************************
+    // *************************
+
+    const findEven = (n) => {
+        if (n % 2 === 0) {
+            return true;
+        }
+        return false;
+    };
+
+    return { createVertObj, findEven, findDifference, findSpaces };
 };
 
 export default useVertObj;

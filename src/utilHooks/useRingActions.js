@@ -57,9 +57,15 @@ const useRingActions = () => {
         } else if (prevVert && newVert) {
             // console.log('prevVert', prevVert, newVert);
             checkStraightline(v, x, y);
+            if (result === true) {
+                const ringClear = checkRingBlocking(v.last, x, y, v.newVert);
+                return ringClear === true ? true : false;
+            } else {
+                return false;
+            }
 
-            const ringClear = checkRingBlocking(v.last, x, y);
-            return result === true && ringClear === true ? true : false;
+            // console.log('ringClear', ringClear, newP);
+            // return result === true && ringClear === true ? true : false;
         }
     };
 

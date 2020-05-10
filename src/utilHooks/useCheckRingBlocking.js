@@ -1,37 +1,43 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useVertObj } from './index';
 const useCheckRingBlocking = () => {
-    const [params, setparams] = useState({ v: '', x: 0, y: 0 });
-    const [space, setSpace] = useState({ x: 0, y: 0 });
-    const [spaces, setSpaces] = useState([{}]);
-    const { vertObj } = useVertObj(params.v, params.x, params.y);
+    const [vertObj, setVertObj] = useState({});
+    const [spaces, setSpaces] = useState([]);
+    const { createVertObj, findDifference, findSpaces } = useVertObj();
 
-    const findDifference = (p, n) => {
-        return n - p;
-    };
-    const findNumberOfSpaces = (xd, yd) => {
-        if (xd === 0) {
-            return { row: xd, num: yd / 2 - 1 };
+    useEffect(() => {
+        console.log('vertObj', vertObj);
+        if (vertObj.prevX !== 0) {
+            handleCheck();
         }
-    };
-    const generateSpaces = (num) => {
+        return () => {};
+    }, [vertObj]);
+
+    const handleCheck = () => {
+        const check = {
+            xdif: findDifference(vertObj.prevX, vertObj.newX),
+            ydif: findDifference(vertObj.prevY, vertObj.newY),
+            spaces: findSpaces(
+                findDifference(vertObj.prevX, vertObj.newX),
+                findDifference(vertObj.prevY, vertObj.newY),
+                vertObj
+            ),
+        };
+        console.log('check', check);
         return;
     };
+
     const checkSpace = () => {
         return;
     };
 
-    const checkRingBlocking = (v, x, y) => {
-        setparams({ ...params, v, x, y });
-        if (vertObj.prevX !== 0) {
-            const xdif = findDifference(vertObj.prevX, vertObj.newX);
-            const ydif = findDifference(vertObj.prevY, vertObj.newY);
-            console.log('vertObj', vertObj);
-            console.log('dif', xdif, ydif);
-            const num = findNumberOfSpaces(xdif, ydif);
-            generateSpaces(num);
-            console.log('num', num);
-        }
+    const checkRingBlocking = (v, x, y, vN) => {
+        // console.log('v,x,y', v, x, y, vN);
+        const obj = createVertObj(v, x, y);
+        setVertObj({ ...obj });
+
+        // setparams({ ...params, v, x, y });
+
         /* find all spaces between two vertices
         check if a ring is currently present
 
