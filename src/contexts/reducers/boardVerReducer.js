@@ -1,7 +1,7 @@
 const boardVerReducer = (state, action) => {
     switch (action.type) {
         case 'COVER_VERT':
-            return;
+            return [...action.payload];
         default:
             return state;
     }
