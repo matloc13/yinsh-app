@@ -10,13 +10,15 @@ const useHandleStones = () => {
         stone.classList.add(color);
     };
 
+    // move and update ring location
+
     const moveRing = (rID, x, y, color) => {
         const ring = document.getElementById(rID);
         const vertID = `x${x}--y${y}`;
         const vert = document.getElementById(vertID);
-        updateRing(vertID, rID);
-        addStone(vertID, color);
         vert.append(ring);
+        addStone(vertID, color);
+        updateRing(vertID, rID);
     };
 
     const determineColor = (id) => {

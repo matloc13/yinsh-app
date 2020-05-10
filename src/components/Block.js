@@ -6,10 +6,8 @@ import Store from './../contexts/Store';
 
 const Block = ({ space, className }) => {
     const { ring, rings } = useContext(Store);
-    // console.log('space', space);
-
     const { moveRing, determineColor } = useHandleStones(rings);
-    const { canMove, resetRing } = useRingActions();
+    const { canMove } = useRingActions();
 
     const [ringData, drop] = useDrop({
         accept: 'ring',
@@ -21,9 +19,12 @@ const Block = ({ space, className }) => {
             getDropResult: !!monitor.getDropResult(),
         }),
     });
-    // console.log('ringData', ringData);
-    const { isOver, getDropResult, canDrop } = ringData;
-    // console.log('canDrop', canDrop);
+
+    const { isOver, canDrop } = ringData;
+    if (isOver) {
+        console.log('isOver, canDrop', isOver, canDrop);
+    }
+
     const vertRef = useRef();
     const handlePoints = (e) => {
         e.persist();
@@ -253,7 +254,9 @@ const Block = ({ space, className }) => {
                             ref={vertRef}
                             className="vertice-top"
                             onClick={handlePoints}
-                        ></button>
+                        >
+                            {/* {space.y} */}
+                        </button>
                     </>
                 )}
             </span>
