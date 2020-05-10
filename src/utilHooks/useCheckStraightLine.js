@@ -2399,21 +2399,124 @@ const useCheckStraightLine = () => {
                 case 7:
                     switch (y) {
                         case 2:
-                            if (lidy === 4) {
+                            if (lidy === 2) {
                                 return setResult(true);
                             }
                             return setResult(false);
                         case 4:
-                            if (lidy === 6) {
+                            if (lidy === 2 || lidy === 4) {
                                 return setResult(true);
                             }
                             return setResult(false);
 
                         case 6:
-                            if (lidy === 2 || lidy === 8) {
+                            if (lidy === 4 || lidy === 6) {
                                 return setResult(true);
                             }
                             return setResult(false);
+                        case 8:
+                            if (lidy === 8 || lidy === 10) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+                        case 10:
+                            if (lidy === 10 || lidy === 12) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+                        case 12:
+                            if (lidy === 12 || lidy === 14) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+                        case 14:
+                            if (lidy === 12 || lidy === 16) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+                        case 16:
+                            if (lidy === 16 || lidy === 18) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+                        case 18:
+                            if (lidy === 16 || lidy === 18) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+
+                        case 20:
+                            if (lidy === 18) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+                        default:
+                            return;
+                    }
+                case 8:
+                    switch (y) {
+                        case 2:
+                            if (lidy === 4) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+                        case 4:
+                            if (lidy === 2 || lidy === 6) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+
+                        case 6:
+                            if (lidy === 4 || lidy === 8) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+                        case 8:
+                            if (lidy === 6 || lidy === 10) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+                        case 10:
+                            if (lidy === 8 || lidy === 12) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+                        case 12:
+                            if (lidy === 10 || lidy === 14) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+                        case 14:
+                            if (lidy === 12 || lidy === 16) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+                        case 16:
+                            if (lidy === 14 || lidy === 18) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+                        case 18:
+                            if (lidy === 16) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+                        default:
+                            return;
+                    }
+                case 9:
+                    switch (y) {
+                        case 4:
+                            if (lidy === 6) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+                        case 6:
+                            if (lidy === 8) {
+                                return setResult(true);
+                            }
+                            return setResult(false);
+
                         case 8:
                             if (lidy === 4 || lidy === 10) {
                                 return setResult(true);
@@ -2444,35 +2547,24 @@ const useCheckStraightLine = () => {
                                 return setResult(true);
                             }
                             return setResult(false);
-
-                        case 20:
-                            if (lidy === 16) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
                         default:
                             return;
                     }
-                case 8:
+                case 10:
                     switch (y) {
-                        case 2:
-                            if (lidy === 6) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
                         case 4:
                             if (lidy === 8) {
                                 return setResult(true);
                             }
                             return setResult(false);
-
                         case 6:
                             if (lidy === 2 || lidy === 10) {
                                 return setResult(true);
                             }
                             return setResult(false);
+
                         case 8:
-                            if (lidy === 4 || lidy === 12) {
+                            if (lidy == 4 || lidy === 12) {
                                 return setResult(true);
                             }
                             return setResult(false);
@@ -2496,27 +2588,11 @@ const useCheckStraightLine = () => {
                                 return setResult(true);
                             }
                             return setResult(false);
-                        case 18:
-                            if (lidy === 14) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
                         default:
                             return;
                     }
-                case 9:
+                case 11:
                     switch (y) {
-                        case 4:
-                            if (lidy === 8) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
-                        case 6:
-                            if (lidy === 10) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
-
                         case 8:
                             if (lidy === 2 || lidy === 12) {
                                 return setResult(true);
@@ -2534,82 +2610,6 @@ const useCheckStraightLine = () => {
                             return setResult(false);
                         case 14:
                             if (lidy === 8 || lidy === 18) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
-                        case 16:
-                            if (lidy === 10) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
-                        case 18:
-                            if (lidy === 12) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
-                        default:
-                            return;
-                    }
-                case 10:
-                    switch (y) {
-                        case 4:
-                            if (lidy === 10) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
-                        case 6:
-                            if (lidy === 12) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
-
-                        case 8:
-                            if (lidy == 2 || lidy === 14) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
-                        case 10:
-                            if (lidy === 4 || lidy === 16) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
-                        case 12:
-                            if (lidy === 6 || lidy === 18) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
-                        case 14:
-                            if (lidy === 8) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
-                        case 16:
-                            if (lidy === 10) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
-                        default:
-                            return;
-                    }
-                case 11:
-                    switch (y) {
-                        case 8:
-                            if (lidy === 14) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
-                        case 10:
-                            if (lidy === 2 || lidy === 16) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
-                        case 12:
-                            if (lidy === 4 || lidy === 18) {
-                                return setResult(true);
-                            }
-                            return setResult(false);
-                        case 14:
-                            if (lidy === 6) {
                                 return setResult(true);
                             }
                             return setResult(false);
