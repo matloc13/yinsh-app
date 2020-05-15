@@ -1,12 +1,15 @@
 import React, { useEffect, useContext } from 'react';
-import { useRingActions } from './../utilHooks/index';
+import { useRingActions, useCheckSpaces } from './../utilHooks/index';
 import { useDrag } from 'react-dnd';
 import Store from './../contexts/Store';
 
 const Ring = ({ color, ringNumber }) => {
-    const { ring } = useContext(Store);
-    const { setActiveRing, findVerts, resetRing } = useRingActions();
+    const { ring, spaceRow } = useContext(Store);
+    const { setActiveRing, findVerts, resetRing, setSpace } = useRingActions();
+    const { checkStones } = useCheckSpaces();
+
     const previousIndex = findVerts(ringNumber, '').last;
+
     const [ringData, drag] = useDrag({
         item: { type: 'ring', ringNumber, previousIndex },
         collect: (monitor) => ({
@@ -15,8 +18,9 @@ const Ring = ({ color, ringNumber }) => {
             dropResult: !!monitor.getDropResult(),
         }),
         end: (dropResult, monitor) => {
-            console.log('dropResult', dropResult);
+            // console.log('dropResult', dropResult);
             const didDrop = monitor.didDrop();
+
             // console.log('didDrop', didDrop);
             if (!didDrop) {
                 resetRing(ringNumber, previousIndex);
@@ -31,10 +35,12 @@ const Ring = ({ color, ringNumber }) => {
             if (ring.current === ringNumber) {
                 const ringNow = document.getElementById(ringNumber);
                 ringNow.classList.add('onBoard');
+                checkStones(spaceRow);
+                setSpace(ring.current);
             }
         }
         return () => {};
-    }, [didDrop]);
+    }, [didDrop]); //eslint-disable-line
 
     return (
         <div

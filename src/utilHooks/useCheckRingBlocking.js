@@ -1,20 +1,21 @@
 import { useState, useEffect } from 'react';
-import { useVertObj } from './index';
+import { useVertObj, useCheckSpaces } from './index';
 const useCheckRingBlocking = () => {
     const [vertObj, setVertObj] = useState({});
-    const [spaces, setSpaces] = useState([]);
+    const [ringBlocking, setringBlocking] = useState(true);
     const { createVertObj, findDifference, findSpaces } = useVertObj();
+    const { checkSpace } = useCheckSpaces();
 
     useEffect(() => {
-        console.log('vertObj', vertObj);
         if (vertObj.prevX !== 0) {
-            handleCheck();
+            const verify = handleCheck();
+            checkRing(verify);
         }
         return () => {};
-    }, [vertObj]);
+    }, [vertObj]); //eslint-disable-line
 
     const handleCheck = () => {
-        const check = {
+        const checkRefs = {
             xdif: findDifference(vertObj.prevX, vertObj.newX),
             ydif: findDifference(vertObj.prevY, vertObj.newY),
             spaces: findSpaces(
@@ -23,35 +24,33 @@ const useCheckRingBlocking = () => {
                 vertObj
             ),
         };
-        console.log('check', check);
-        return;
+        return checkSpace(checkRefs);
+    };
+    const checkRing = (verify) => {
+        console.log('verify', verify);
+        if (verify.length > 1) {
+            verify.forEach((s) => {
+                if (s && s.covered === false && s.ring === false) {
+                    setringBlocking(true);
+                }
+                if ((s && s.covered === true) || (s && s.ring === true)) {
+                    console.log('s', s);
+                    return setringBlocking(false);
+                }
+            });
+        }
     };
 
-    const checkSpace = () => {
-        return;
-    };
-
-    const checkRingBlocking = (v, x, y, vN) => {
-        // console.log('v,x,y', v, x, y, vN);
+    const checkRingBlocking = (v, x, y) => {
         const obj = createVertObj(v, x, y);
         setVertObj({ ...obj });
 
-        // setparams({ ...params, v, x, y });
-
-        /* find all spaces between two vertices
-        check if a ring is currently present
-
-        first vertice 
-        new vertice 
-        find verts inbetween    check distance between rows 
-
-        if      prev x1 y8     new x6 y12
-        find dif of rows
-        loop number of dif  create vertices in between
-
+        /* 
+        check -find all spaces between two vertices
+        awaiting -check if a ring is currently in the way
         */
 
-        return true;
+        return ringBlocking;
     };
     return { checkRingBlocking };
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Row, offBoard, Ring } from './index';
+import { Row, Ring } from './index';
 import Store from './../contexts/Store';
 import { useAssembleBoard } from './../utilHooks/index';
 import Backend from 'react-dnd-html5-backend';
@@ -7,19 +7,17 @@ import { DndProvider } from 'react-dnd';
 
 const Grid = () => {
     const initboard = [];
-    const { ring, rings } = useContext(Store);
+    const { rings } = useContext(Store);
     const [gameboard, setGameboard] = useState(initboard);
     const { buildBoard } = useAssembleBoard();
 
     useEffect(() => {
         let board = buildBoard(12);
         if (board) {
-            // console.log('board', board);
             setGameboard({ ...gameboard, board });
         }
-    }, []);
+    }, []); //eslint-disable-line
 
-    // console.log('ring.current', ring.current);
     return (
         <DndProvider backend={Backend}>
             <main className="grid">

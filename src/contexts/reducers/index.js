@@ -7,6 +7,8 @@ import ring4Reducer from './ring4Reducer';
 import ring5Reducer from './ring5Reducer';
 import ring6Reducer from './ring6Reducer';
 import boardVerReducer from './boardVerReducer';
+import spaceRowReducer from './spaceRowReducer';
+import ringlastReducer from './ringlastReducer';
 
 export {
     ringReducer,
@@ -18,4 +20,6 @@ export {
     ring5Reducer,
     ring6Reducer,
     boardVerReducer,
+    spaceRowReducer,
+    ringlastReducer,
 };

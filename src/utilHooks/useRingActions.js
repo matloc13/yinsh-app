@@ -9,26 +9,15 @@ const useRingActions = () => {
     const { result, checkStraightline } = useCheckStraightLine();
     const { checkRingBlocking } = useCheckRingBlocking();
     const allRings = [ring1, ring2, ring3, ring4, ring5, ring6];
-    // console.log('ring', ring);
-    // console.log('ring1', ring1);
-    // console.log('ring2', ring2);
-    // console.log('ring3', ring3);
-    // console.log('ring4', ring4);
-    // console.log('ring5', ring5);
-    // console.log('ring6', ring6);
 
     const resetRing = (rID, previousIndex) => {
-        // const curRing = ringVariable(rID);
-        // const vertID = allRings[curRing].locations[allRings[curRing].locations.length - 1];
-        // console.log('vertID', vertID);
         return updateRing(previousIndex, rID);
     };
 
     const checkNew = (n) => {
-        // console.log('boardArr', boardArr);
         let clear = false;
         boardArr.forEach((vert) => {
-            if (vert.id === n && vert.covered) {
+            if (vert.id === n && vert.covered === true) {
                 clear = false;
                 return;
             } else if (vert.id === n && vert.covered === false) {
@@ -52,20 +41,26 @@ const useRingActions = () => {
         const newVert = checkNew(v.newVert);
 
         if (prevVert === true && newVert) {
-            // console.log('prevVert', prevVert, newVert);
             return true;
         } else if (prevVert && newVert) {
-            // console.log('prevVert', prevVert, newVert);
             checkStraightline(v, x, y);
             if (result === true) {
-                const ringClear = checkRingBlocking(v.last, x, y, v.newVert);
+                const ringClear = checkRingBlocking(v.last, x, y);
                 return ringClear === true ? true : false;
             } else {
                 return false;
             }
+        }
+    };
 
-            // console.log('ringClear', ringClear, newP);
-            // return result === true && ringClear === true ? true : false;
+    const setSpace = (rID) => {
+        const ringLocation = allRings[ringVariable(rID)].locations;
+        const prevLoc = ringLocation[ringLocation.length - 2];
+        console.log('object', prevLoc);
+        if (ringLocation.length > 2) {
+            const s = boardArr.filter((arr) => arr.id !== prevLoc);
+            const newArr = [...s, { id: prevLoc, covered: true, ring: false }];
+            dispatch({ type: 'SET_SPACE', payload: newArr });
         }
     };
 
@@ -79,14 +74,13 @@ const useRingActions = () => {
         const newVertID = `x${x}--y${y}`;
         const verts = findVerts(rID, newVertID);
         const vertClear = checkVertStones(verts, x, y);
-        // console.log('vertClear', vertClear);
         if (!vertClear === true) {
             return false;
         }
         return true;
         /* 
         func 4- is there a ring between previous vert and new vert?
-        
+
         CHECK stones on route,  
         ??????????
         - is stone in path of ring?    ( true flip stone )
@@ -108,7 +102,7 @@ const useRingActions = () => {
         });
     };
 
-    const updateRing = (vertID, ringID) => {
+    const updateRing = async (vertID, ringID) => {
         const curRing = ringVariable(ringID);
         return dispatch({
             type: `SET_LOCATION_${ringID}`,
@@ -118,7 +112,7 @@ const useRingActions = () => {
         });
     };
 
-    return { setActiveRing, updateRing, canMove, resetRing, findVerts };
+    return { setActiveRing, updateRing, canMove, resetRing, findVerts, setSpace };
 };
 
 export default useRingActions;
