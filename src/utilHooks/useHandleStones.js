@@ -5,7 +5,6 @@ import Store from './../contexts/Store';
 const useHandleStones = () => {
     const { boardArr, dispatch } = useContext(Store);
     const { updateRing } = useRingActions();
-    // console.log('boardArray', boardArr);
 
     // add new stone
 
@@ -17,8 +16,18 @@ const useHandleStones = () => {
 
     const coverBoardSpace = (id) => {
         const s = boardArr.filter((arr) => arr.id !== id);
-        const newArr = [...s, { id: id, covered: true }];
+        const newArr = [...s, { id: id, covered: true, ring: true }];
         dispatch({ type: 'COVER_VERT', payload: newArr });
+    };
+
+    const addToLast = (rID, vertID) => {
+        dispatch({
+            type: 'SET_LAST',
+            payload: {
+                name: rID,
+                vert: vertID,
+            },
+        });
     };
 
     // move and update ring location
@@ -30,28 +39,10 @@ const useHandleStones = () => {
         vert.append(ring);
         addStone(vertID, color);
         updateRing(vertID, rID);
+        addToLast(rID, vertID);
     };
 
-    const determineColor = (id) => {
-        const stone = document.getElementById(id);
-        const list = stone.className;
-        const color = list.replace('vertice-top', ' ');
-        return color;
-    };
-
-    const flipStone = (id) => {
-        const stone = document.getElementById(id);
-        const color = determineColor(id);
-
-        switch (color) {
-            case 'white':
-                return stone.classList.replace('white', 'black');
-            case 'black':
-                return stone.classList.replace('black', 'white');
-        }
-    };
-
-    return { flipStone, moveRing, determineColor };
+    return { moveRing };
 };
 
 export default useHandleStones;

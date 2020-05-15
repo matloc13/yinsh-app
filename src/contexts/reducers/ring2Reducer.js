@@ -6,7 +6,7 @@ const ring2Reducer = (state, action) => {
                 id: 'ring2',
                 locations: action.payload.locations,
                 color: 'black',
-                inPlay: action.payload.inPlay,
+                inPlay: true,
             };
         default:
             return state;

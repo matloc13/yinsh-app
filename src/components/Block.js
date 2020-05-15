@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useContext, useState } from 'react';
+import React, { useRef, useContext } from 'react';
 import { useHandleStones, useRingActions } from './../utilHooks/index';
-
 import { useDrop } from 'react-dnd';
 import Store from './../contexts/Store';
 
 const Block = ({ space, className }) => {
-    const { ring, rings } = useContext(Store);
-    const { moveRing, determineColor } = useHandleStones(rings);
+    const { ring, rings, spaceRow } = useContext(Store);
+    const { moveRing } = useHandleStones(rings);
     const { canMove } = useRingActions();
 
     const [ringData, drop] = useDrop({
@@ -22,16 +21,19 @@ const Block = ({ space, className }) => {
 
     const { isOver, canDrop } = ringData;
     if (isOver) {
-        console.log('isOver, canDrop', isOver, canDrop);
+        // console.log('isOver, canDrop', isOver, canDrop);
     }
 
     const vertRef = useRef();
     const handlePoints = (e) => {
         e.persist();
         let now = vertRef.current;
-        determineColor(e.target.id);
         now.focus();
     };
+
+    // **************
+    // ROWS         *******************
+    // ******************
 
     {
         if (space.x === 1) {
@@ -255,7 +257,7 @@ const Block = ({ space, className }) => {
                             className="vertice-top"
                             onClick={handlePoints}
                         >
-                            {space.y}
+                            {/* {space.y} */}
                         </button>
                     </>
                 )}
