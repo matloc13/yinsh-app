@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import { useVertObj, useCheckSpaces } from './index';
 const useCheckRingBlocking = () => {
     const [vertObj, setVertObj] = useState({});
-    // const [ringBlocking, setringBlocking] = useState(false);
+    const [ringBlocking, setringBlocking] = useState(true);
     const { createVertObj, findDifference, findSpaces } = useVertObj();
     const { checkSpace } = useCheckSpaces();
 
     useEffect(() => {
         if (vertObj.prevX !== 0) {
-            handleCheck();
+            const verify = handleCheck();
+            checkRing(verify);
         }
         return () => {};
     }, [vertObj]); //eslint-disable-line
@@ -23,8 +24,21 @@ const useCheckRingBlocking = () => {
                 vertObj
             ),
         };
-        checkSpace(checkRefs);
-        return;
+        return checkSpace(checkRefs);
+    };
+    const checkRing = (verify) => {
+        console.log('verify', verify);
+        if (verify.length > 1) {
+            verify.forEach((s) => {
+                if (s && s.covered === false && s.ring === false) {
+                    setringBlocking(true);
+                }
+                if ((s && s.covered === true) || (s && s.ring === true)) {
+                    console.log('s', s);
+                    return setringBlocking(false);
+                }
+            });
+        }
     };
 
     const checkRingBlocking = (v, x, y) => {
@@ -36,7 +50,7 @@ const useCheckRingBlocking = () => {
         awaiting -check if a ring is currently in the way
         */
 
-        return true;
+        return ringBlocking;
     };
     return { checkRingBlocking };
 };

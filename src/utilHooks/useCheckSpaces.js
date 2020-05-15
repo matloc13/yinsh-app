@@ -23,7 +23,7 @@ const useCheckSpaces = () => {
             newArr.push(bub[0]);
         });
         dispatch({ type: 'SPACE_ROW', payload: newArr });
-        return;
+        return newArr;
     };
 
     const determineColor = (stone) => {
