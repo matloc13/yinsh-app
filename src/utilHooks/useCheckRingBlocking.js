@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
-import { useVertObj } from './index';
+import { useVertObj, useCheckSpaces } from './index';
 const useCheckRingBlocking = () => {
     const [vertObj, setVertObj] = useState({});
-    const [spaces, setSpaces] = useState([]);
+    // const [ringBlocking, setringBlocking] = useState(false);
     const { createVertObj, findDifference, findSpaces } = useVertObj();
+    const { checkSpace } = useCheckSpaces();
 
     useEffect(() => {
-        console.log('vertObj', vertObj);
         if (vertObj.prevX !== 0) {
             handleCheck();
         }
         return () => {};
-    }, [vertObj]);
+    }, [vertObj]); //eslint-disable-line
 
     const handleCheck = () => {
         const checkRefs = {
@@ -23,33 +23,17 @@ const useCheckRingBlocking = () => {
                 vertObj
             ),
         };
-        console.log('check', checkRefs);
         checkSpace(checkRefs);
         return;
     };
 
-    const checkSpace = () => {
-        return;
-    };
-
-    const checkRingBlocking = (v, x, y, vN) => {
-        // console.log('v,x,y', v, x, y, vN);
+    const checkRingBlocking = (v, x, y) => {
         const obj = createVertObj(v, x, y);
         setVertObj({ ...obj });
 
-        // setparams({ ...params, v, x, y });
-
-        /* find all spaces between two vertices
-        check if a ring is currently present
-
-        first vertice 
-        new vertice 
-        find verts inbetween    check distance between rows 
-
-        if      prev x1 y8     new x6 y12
-        find dif of rows
-        loop number of dif  create vertices in between
-
+        /* 
+        check -find all spaces between two vertices
+        awaiting -check if a ring is currently in the way
         */
 
         return true;

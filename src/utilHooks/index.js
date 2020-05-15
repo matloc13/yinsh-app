@@ -4,6 +4,7 @@ import useRingActions from './useRingActions';
 import useCheckStraightLine from './useCheckStraightLine';
 import useCheckRingBlocking from './useCheckRingBlocking';
 import useVertObj from './useVertObj';
+import useCheckSpaces from './useCheckSpaces';
 
 export {
     useAssembleBoard,
@@ -12,4 +13,5 @@ export {
     useCheckStraightLine,
     useCheckRingBlocking,
     useVertObj,
+    useCheckSpaces,
 };

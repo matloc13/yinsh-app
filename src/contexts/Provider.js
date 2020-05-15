@@ -11,6 +11,8 @@ import {
     ring5State,
     ring6State,
     boardArray,
+    spaceRowState,
+    ringsLast,
 } from './initStates';
 import {
     ringReducer,
@@ -22,6 +24,8 @@ import {
     ring5Reducer,
     ring6Reducer,
     boardVerReducer,
+    spaceRowReducer,
+    ringlastReducer,
 } from './reducers/index';
 
 const Provider = () => {
@@ -34,6 +38,8 @@ const Provider = () => {
     const [ring5, dispatchRing5] = useReducer(ring5Reducer, ring5State);
     const [ring6, dispatchRing6] = useReducer(ring6Reducer, ring6State);
     const [boardArr, dispatchBoardArr] = useReducer(boardVerReducer, boardArray);
+    const [spaceRow, dispatchSpaceRow] = useReducer(spaceRowReducer, spaceRowState);
+    const [ringLast, dispatchRingsLast] = useReducer(ringlastReducer, ringsLast);
 
     const dispatch = (action) => {
         [
@@ -46,6 +52,8 @@ const Provider = () => {
             dispatchRing5,
             dispatchRing6,
             dispatchBoardArr,
+            dispatchSpaceRow,
+            dispatchRingsLast,
         ].forEach((fn) => {
             fn(action);
         });
@@ -57,7 +65,20 @@ const Provider = () => {
 
     return (
         <Store.Provider
-            value={{ ring, rings, ring1, ring2, ring3, ring4, ring5, ring6, boardArr, dispatch }}
+            value={{
+                ring,
+                rings,
+                ring1,
+                ring2,
+                ring3,
+                ring4,
+                ring5,
+                ring6,
+                boardArr,
+                spaceRow,
+                ringLast,
+                dispatch,
+            }}
         >
             <App />
         </Store.Provider>
