@@ -3,9 +3,7 @@ import Store from './../contexts/Store';
 import { useCheckStraightLine, useCheckRingBlocking } from './index';
 
 const useRingActions = () => {
-    const { ring, ring1, ring2, ring3, ring4, ring5, ring6, boardArr, dispatch } = useContext(
-        Store
-    );
+    const { ring1, ring2, ring3, ring4, ring5, ring6, boardArr, dispatch } = useContext(Store);
     const { result, checkStraightline } = useCheckStraightLine();
     const { checkRingBlocking } = useCheckRingBlocking();
     const allRings = [ring1, ring2, ring3, ring4, ring5, ring6];

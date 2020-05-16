@@ -1675,7 +1675,7 @@ const useCheckStraightLine = () => {
                             return setResult(false);
 
                         case 8:
-                            if (lidy == 2 || lidy === 14) {
+                            if (lidy === 2 || lidy === 14) {
                                 return setResult(true);
                             }
                             return setResult(false);
@@ -2117,7 +2117,7 @@ const useCheckStraightLine = () => {
                             return setResult(false);
 
                         case 8:
-                            if (lidy == 2 || lidy === 14) {
+                            if (lidy === 2 || lidy === 14) {
                                 return setResult(true);
                             }
                             return setResult(false);
@@ -2564,7 +2564,7 @@ const useCheckStraightLine = () => {
                             return setResult(false);
 
                         case 8:
-                            if (lidy == 4 || lidy === 12) {
+                            if (lidy === 4 || lidy === 12) {
                                 return setResult(true);
                             }
                             return setResult(false);
@@ -3006,7 +3006,7 @@ const useCheckStraightLine = () => {
                             return setResult(false);
 
                         case 8:
-                            if (lidy == 6 || lidy === 12) {
+                            if (lidy === 6 || lidy === 12) {
                                 return setResult(true);
                             }
                             return setResult(false);
@@ -3453,7 +3453,7 @@ const useCheckStraightLine = () => {
                             return setResult(false);
 
                         case 8:
-                            if (lidy == 6 || lidy === 10) {
+                            if (lidy === 6 || lidy === 10) {
                                 return setResult(true);
                             }
                             return setResult(false);
@@ -3882,7 +3882,7 @@ const useCheckStraightLine = () => {
                             }
                             return setResult(false);
                         case 18:
-                            if (lidy === 16) {
+                            if (lidy === 18) {
                                 return setResult(true);
                             }
                             return setResult(false);

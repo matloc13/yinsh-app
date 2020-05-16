@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import Store from './../contexts/Store';
 
 const useCheckSpaces = () => {
-    const { boardArr, dispatch, ringLast } = useContext(Store);
+    const { boardArr, dispatch } = useContext(Store);
 
     const checkStones = (list) => {
         console.log('list', list);
@@ -11,6 +11,7 @@ const useCheckSpaces = () => {
                 flipStone(ele.id);
             }
         });
+        return;
     };
 
     const checkSpace = (check) => {
