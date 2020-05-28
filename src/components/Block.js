@@ -244,7 +244,7 @@ const Block = ({ space, className }) => {
                         className="vertice-top"
                         onClick={handlePoints}
                     >
-                        {space.y}
+                        {/* {space.y} */}
                     </button>
                 </>
             )}
