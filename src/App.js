@@ -5,7 +5,9 @@ import './App.scss';
 const App = () => {
     return (
         <div className="App">
-            <Grid />
+            <div className="table">
+                <Grid />
+            </div>
         </div>
     );
 };

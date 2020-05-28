@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useVertObj, useCheckSpaces } from './index';
+
+
 const useCheckRingBlocking = () => {
     const [vertObj, setVertObj] = useState({});
-    const [ringBlocking, setringBlocking] = useState(true);
+    const [ringBlocking, setringBlocking] = useState(false);
     const { createVertObj, findDifference, findSpaces } = useVertObj();
-    const { checkSpace } = useCheckSpaces();
+    const { checkSpace, isLegalMove } = useCheckSpaces();
 
     useEffect(() => {
         if (vertObj.prevX !== 0) {
@@ -14,6 +16,8 @@ const useCheckRingBlocking = () => {
         return () => {};
     }, [vertObj]); //eslint-disable-line
 
+    // creates an array of vertices from the projected endpoint
+    // *****************
     const handleCheck = () => {
         const checkRefs = {
             xdif: findDifference(vertObj.prevX, vertObj.newX),
@@ -24,19 +28,22 @@ const useCheckRingBlocking = () => {
                 vertObj
             ),
         };
+
+        isLegalMove(checkRefs);
         return checkSpace(checkRefs);
     };
+    // GAME LOGIC
+    // is threre a ring in the way?
     const checkRing = (verify) => {
-        console.log('verify', verify);
         if (verify.length > 1) {
             verify.forEach((s) => {
+                if ((s && s.ring === true) || (s && s.covered === true)) {
+                    return setringBlocking(false);
+                }
                 if (s && s.covered === false && s.ring === false) {
                     setringBlocking(true);
                 }
-                if ((s && s.covered === true) || (s && s.ring === true)) {
-                    console.log('s', s);
-                    return setringBlocking(false);
-                }
+
             });
         }
     };
@@ -44,14 +51,9 @@ const useCheckRingBlocking = () => {
     const checkRingBlocking = (v, x, y) => {
         const obj = createVertObj(v, x, y);
         setVertObj({ ...obj });
-
-        /* 
-        check -find all spaces between two vertices
-        awaiting -check if a ring is currently in the way
-        */
-
         return ringBlocking;
     };
+
     return { checkRingBlocking };
 };
 

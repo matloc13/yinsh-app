@@ -14,6 +14,8 @@ const useVertObj = () => {
 
                 case 1:
                     return (prevY = Number(ele.replace(reggie, ''), 10));
+                default:
+                    return;
             }
         });
 

@@ -15,12 +15,12 @@ $ringPos: -11px;
 
 // row
 
-$rowHeight: 52px;
+$rowHeight: 50px;
 $rowPaddingLeft: 26px;
 // tri
 
 $borderLR: 25px;
-$borderTB: 50px;
+$borderTB: 49px;
 $margin-top: -2px;
 $margin-left: -24px;
 
@@ -45,6 +45,7 @@ $stoneLeft: -12px;
             background-color: $clear;
             z-index: 4;
             top: $num * 32px;
+            left: 200px;
         }
     }
 }
@@ -58,14 +59,20 @@ $stoneLeft: -12px;
 // ***********************
 //    BOARD          ******************
 //************************
+
+.App {
+    // transform: rotate(-90deg);
+    // width: 100vh;
+    // height: 100vw;
+}
 .grid {
-    width: 100vw;
-    min-height: 100vh;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-flow: column;
-    margin: 0 auto;
+    margin: 0;
     background-color: $pen;
-    padding: 10% 2%;
+    padding: 8% 8%;
 }
 
 .row {
@@ -79,7 +86,7 @@ $stoneLeft: -12px;
     }
 }
 
-// ******************
+// *******************
 // triangles      **************
 // *******************
 
@@ -103,8 +110,8 @@ $stoneLeft: -12px;
         color: $clear;
         &-top {
             position: absolute;
-            top: $stoneTop + 4;
-            left: $stoneLeft + 4;
+            top: $stoneTop + 5;
+            left: $stoneLeft + 5;
             border: 1px solid $green;
             background-color: $light-paper;
             padding: $vertPadding;
