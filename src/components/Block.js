@@ -34,7 +34,6 @@ const Block = ({ space, className }) => {
     // **************
     // ROWS         *******************
     // ******************
-
     if (space.x === 1) {
         if (
             space.y === 1 ||
@@ -52,6 +51,7 @@ const Block = ({ space, className }) => {
             space.y === 20
         ) {
             return <span className={`tri ${className} y${space.y} hidden`}></span>;
+
         }
     }
     if (space.x === 2) {

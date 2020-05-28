@@ -2,10 +2,12 @@ import { useContext } from 'react';
 import Store from './../contexts/Store';
 
 const useCheckSpaces = () => {
+
     const { boardArr, dispatch } = useContext(Store);
 
     // verify stones and alter ***************
     // *****************
+
     const checkStones = (list) => {
         console.log('list', list);
         list.filter((ele) => {
@@ -17,6 +19,7 @@ const useCheckSpaces = () => {
     };
     // updates board reducer *****************
     // *****************
+
     const checkSpace = (check) => {
         let newArr = [];
         check.spaces.forEach((ele) => {
@@ -41,6 +44,7 @@ const useCheckSpaces = () => {
         }
     };
 
+
     const determineColor = (stone) => {
         const color = stone.className.replace('vertice-top ', '');
         return color;
@@ -52,6 +56,7 @@ const useCheckSpaces = () => {
         return stone.classList.replace(color.toString(), color === 'white' ? 'black' : 'white');
     };
     return { checkSpace, checkStones, isLegalMove };
+
 };
 
 export default useCheckSpaces;

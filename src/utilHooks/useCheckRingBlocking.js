@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useVertObj, useCheckSpaces } from './index';
 
+
 const useCheckRingBlocking = () => {
     const [vertObj, setVertObj] = useState({});
     const [ringBlocking, setringBlocking] = useState(false);
@@ -27,6 +28,7 @@ const useCheckRingBlocking = () => {
                 vertObj
             ),
         };
+
         isLegalMove(checkRefs);
         return checkSpace(checkRefs);
     };
@@ -41,6 +43,7 @@ const useCheckRingBlocking = () => {
                 if (s && s.covered === false && s.ring === false) {
                     setringBlocking(true);
                 }
+
             });
         }
     };
@@ -48,7 +51,6 @@ const useCheckRingBlocking = () => {
     const checkRingBlocking = (v, x, y) => {
         const obj = createVertObj(v, x, y);
         setVertObj({ ...obj });
-
         return ringBlocking;
     };
 
