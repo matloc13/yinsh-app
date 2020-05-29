@@ -1,0 +1,33 @@
+$length: (1, 2, 3, 4, 5, 6);
+$paper: rgb(206, 207, 211);
+$light-paper: rgb(211, 212, 215);
+$pen: rgb(69, 73, 76);
+$darkPen: rgb(33, 33, 33);
+$green: rgb(101, 109, 50);
+$blue: rgb(108, 144, 186);
+$clear: transparent;
+$ringBlack: black;
+$ringWhite: white;
+
+// sizes
+
+$ringBox: 26px;
+$ringPos: -11px;
+
+// row
+
+$rowHeight: 50px;
+$rowPaddingLeft: 26px;
+
+// tri
+
+$borderLR: 25px;
+$borderTB: 49px;
+$margin-top: -2px;
+$margin-left: -24px;
+
+// stone
+
+$vertPadding: 5px;
+$stoneTop: -12px;
+$stoneLeft: -12px;
