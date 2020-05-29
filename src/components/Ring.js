@@ -46,7 +46,7 @@ const Ring = ({ color, ringNumber }) => {
         <div
             ref={drag}
             id={ringNumber}
-            className={`ring ${ringNumber}`}
+            className={`ring ${ringNumber} ${color}`}
             onMouseOver={(e) => setActiveRing(e, color)}
             style={{
                 border: `3px solid ${color}`,

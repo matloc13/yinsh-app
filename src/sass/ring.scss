@@ -1,0 +1,19 @@
+// *************************
+// RINGS           ******************
+// *************************
+
+.ring {
+    position: absolute;
+    &.black {
+        @include ring($top: 20px, $left: 816px);
+    }
+    &.white {
+        @include ring($top: 528px, $left: 305px);
+    }
+}
+
+.onBoard {
+    position: absolute;
+    top: $ringPos !important;
+    left: $ringPos !important;
+}
