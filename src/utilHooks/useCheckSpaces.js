@@ -2,14 +2,13 @@ import { useContext } from 'react';
 import Store from './../contexts/Store';
 
 const useCheckSpaces = () => {
-
     const { boardArr, dispatch } = useContext(Store);
 
     // verify stones and alter ***************
     // *****************
 
     const checkStones = (list) => {
-        console.log('list', list);
+        // console.log('list', list);
         list.filter((ele) => {
             if (ele && ele.covered === true && ele.ring === false) {
                 flipStone(ele.id);
@@ -21,8 +20,10 @@ const useCheckSpaces = () => {
     // *****************
 
     const checkSpace = (check) => {
+        console.log('check', check);
         let newArr = [];
         check.spaces.forEach((ele) => {
+            console.log('ele', ele);
             const vertID = `x${ele.x}--y${ele.y}`;
             const bub = boardArr.filter((space) => {
                 return space.id === vertID;
@@ -40,10 +41,9 @@ const useCheckSpaces = () => {
         const cS = cRefs.spaces;
         if (cS.length > 2) {
             const last = cS[cS.length - 1];
-            console.log('last', last);
+            // console.log('last', last);
         }
     };
-
 
     const determineColor = (stone) => {
         const color = stone.className.replace('vertice-top ', '');
@@ -56,7 +56,6 @@ const useCheckSpaces = () => {
         return stone.classList.replace(color.toString(), color === 'white' ? 'black' : 'white');
     };
     return { checkSpace, checkStones, isLegalMove };
-
 };
 
 export default useCheckSpaces;
