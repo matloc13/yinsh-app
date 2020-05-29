@@ -1,0 +1,13 @@
+@mixin ring($top, $left) {
+    @each $num in $length {
+        &.ring#{$num} {
+            width: $ringBox;
+            height: $ringBox;
+            border-radius: 50%;
+            background-color: $clear;
+            z-index: 4;
+            left: $left;
+            top: $num * 34px + $top;
+        }
+    }
+}
